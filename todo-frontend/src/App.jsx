@@ -7,7 +7,7 @@ function App() {
   const [editId, setEditId] = useState(null);
   const [editText, setEditText] = useState("");
 
-  
+
 
   const addTodo = () => {
     if (!task.trim()) return;
@@ -64,27 +64,6 @@ function App() {
         <h1 className="text-4xl font-bold text-center text-slate-800 mb-2">
           Todo App
         </h1>
-
-        {/* <p className="text-center text-gray-500 mb-8">
-          Organize your daily tasks efficiently
-        </p> */}
-
-        {/* Stats
-        <div className="flex justify-center gap-4 flex-wrap mb-8">
-          <div className="bg-white px-5 py-3 rounded-xl shadow-sm border">
-            <span className="font-semibold">Total:</span> {todos.length}
-          </div>
-
-          <div className="bg-white px-5 py-3 rounded-xl shadow-sm border">
-            <span className="font-semibold">Pending:</span>{" "}
-            {pendingTodos.length}
-          </div>
-
-          <div className="bg-white px-5 py-3 rounded-xl shadow-sm border">
-            <span className="font-semibold">Completed:</span>{" "}
-            {completedTodos.length}
-          </div>
-        </div> */}
 
         {/* Add Task */}
         <div className="bg-white rounded-2xl shadow-sm border p-5 mb-8">
