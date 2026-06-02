@@ -81,9 +81,9 @@ function App() {
   const completedTodos = todos.filter((todo) => todo.status === "completed");
 
   return (
-    <div className="min-h-screen bg-slate-100 p-6">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-gray-100 p-6">
       {/* Header */}
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold text-center text-slate-800 mb-2">
           Todo App
         </h1>
@@ -96,6 +96,11 @@ function App() {
               placeholder="Enter a new task..."
               value={task}
               onChange={(e) => setTask(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+               addTodo();
+               }
+                }}
               className="flex-1 border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
