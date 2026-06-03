@@ -89,7 +89,7 @@ function App() {
         </h1>
 
         {/* Add Task */}
-        <div className="bg-white rounded-2xl shadow-sm border p-5 mb-8">
+        <div className="bg-white rounded-2xl shadow-sm border p-2 md:p-5 mb-8">
           <div className="flex gap-3">
             <input
               type="text"
@@ -98,17 +98,17 @@ function App() {
               onChange={(e) => setTask(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-               addTodo();
-               }
-                }}
-              className="flex-1 border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  addTodo();
+                }
+              }}
+              className="flex-1 border border-gray-300 rounded-xl px-2 md:px-4 md:py-3 focus:outline-none"
             />
 
             <button
               onClick={addTodo}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition"
+              className="bg-blue-600 hover:bg-blue-700 text-white md:px-6 md:py-3 px-3 py-2 rounded-xl font-medium transition"
             >
-              Add Task
+              {window.innerWidth < 768 ? "Add" : "Add Task"}
             </button>
           </div>
         </div>
@@ -116,64 +116,115 @@ function App() {
         {/* Task Columns */}
         <div className="grid md:grid-cols-2 gap-6">
           {/* Pending Tasks */}
-          <div>
+          <div className="max-h-[60vh]">
             <h2 className="text-2xl font-semibold text-slate-700 mb-4">
               Pending Tasks ({pendingTodos.length})
             </h2>
+            <div className="h-full overflow-y-scroll [scrollbar-width:none]">
 
-            {pendingTodos.length === 0 ? (
-              <div className="bg-white rounded-xl p-5 border text-center text-gray-500">
-                No pending tasks
-              </div>
-            ) : (
-              pendingTodos.map((todo) => (
-                <div
-                  key={todo._id}
-                  className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition mb-4 flex justify-between items-center"
-                >
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => toggleComplete(todo._id)}
-                      className="w-7 h-7 rounded-full border-2 border-blue-500"
-                    ></button>
+              {pendingTodos.length === 0 ? (
+                <div className="bg-white rounded-xl p-5 border text-center text-gray-500">
+                  No pending tasks
+                </div>
+              ) : (
+                pendingTodos.map((todo) => (
 
-                    <div>
+                  <div
+                    key={todo._id}
+                    className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition mb-4 flex justify-between items-center "
+                  >
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => toggleComplete(todo._id)}
+                        className="w-7 h-7 rounded-full border-2 border-blue-500"
+                      ></button>
+
+                      <div>
+                        {editId === todo._id ? (
+                          <input
+                            value={editText}
+                            onChange={(e) => setEditText(e.target.value)}
+                            className="border rounded px-2 py-1"
+                          />
+                        ) : (
+                          <>
+                            <p className="text-slate-800 font-medium">
+                              {todo.title}
+                            </p>
+
+                            <span className="bg-orange-100 text-orange-600 px-2 py-1 rounded-full text-xs">
+                              Pending
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2">
                       {editId === todo._id ? (
-                        <input
-                          value={editText}
-                          onChange={(e) => setEditText(e.target.value)}
-                          className="border rounded px-2 py-1"
-                        />
+                        <button
+                          onClick={saveEdit}
+                          className="bg-green-500 text-white px-3 py-2 rounded-lg"
+                        >
+                          Save
+                        </button>
                       ) : (
-                        <>
-                          <p className="text-slate-800 font-medium">
-                            {todo.title}
-                          </p>
-
-                          <span className="bg-orange-100 text-orange-600 px-2 py-1 rounded-full text-xs">
-                            Pending
-                          </span>
-                        </>
+                        <button
+                          onClick={() => startEdit(todo)}
+                          className="bg-yellow-500 text-white p-3 rounded-lg"
+                        >
+                          <FaEdit />
+                        </button>
                       )}
+
+                      <button
+                        onClick={() => deleteTodo(todo._id)}
+                        className="bg-red-500 text-white p-3 rounded-lg"
+                      >
+                        <FaTrash />
+                      </button>
                     </div>
                   </div>
+                ))
+              )}
+            </div>
+          </div>
 
-                  <div className="flex gap-2">
-                    {editId === todo._id ? (
+          {/* Completed Tasks */}
+          <div className="mt-8 md:mt-0 max-h-[60vh]">
+            <h2 className="text-2xl font-semibold text-slate-700 mb-4">
+              Completed Tasks ({completedTodos.length})
+            </h2>
+            <div className="h-full overflow-y-scroll [scrollbar-width:none]">
+
+              {completedTodos.length === 0 ? (
+                <div className="bg-white rounded-xl p-5 border text-center text-gray-500">
+                  No completed tasks
+                </div>
+              ) : (
+                completedTodos.map((todo) => (
+                  <div
+                    key={todo._id}
+                    className="bg-green-50 p-4 rounded-xl border border-green-200 shadow-sm hover:shadow-md transition mb-4 flex justify-between items-center"
+                  >
+                    <div className="flex items-center gap-3">
                       <button
-                        onClick={saveEdit}
-                        className="bg-green-500 text-white px-3 py-2 rounded-lg"
+                        onClick={() => toggleComplete(todo._id)}
+                        className="w-7 h-7 rounded-full bg-blue-500 text-white flex items-center justify-center"
                       >
-                        Save
+                        <FaCheck />
                       </button>
-                    ) : (
-                      <button
-                        onClick={() => startEdit(todo)}
-                        className="bg-yellow-500 text-white p-3 rounded-lg"
-                      >
-                        <FaEdit />
-                      </button>
-                    )}
+
+                      <div>
+                        <p className="line-through text-gray-500">
+                          {todo.title}
+                        </p>
+
+                        <span className="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs">
+                          Completed
+                        </span>
+                      </div>
+                    </div>
 
                     <button
                       onClick={() => deleteTodo(todo._id)}
@@ -182,55 +233,9 @@ function App() {
                       <FaTrash />
                     </button>
                   </div>
-                </div>
-              ))
-            )}
-          </div>
-
-          {/* Completed Tasks */}
-          <div>
-            <h2 className="text-2xl font-semibold text-slate-700 mb-4">
-              Completed Tasks ({completedTodos.length})
-            </h2>
-
-            {completedTodos.length === 0 ? (
-              <div className="bg-white rounded-xl p-5 border text-center text-gray-500">
-                No completed tasks
-              </div>
-            ) : (
-              completedTodos.map((todo) => (
-                <div
-                  key={todo._id}
-                  className="bg-green-50 p-4 rounded-xl border border-green-200 shadow-sm hover:shadow-md transition mb-4 flex justify-between items-center"
-                >
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => toggleComplete(todo._id)}
-                      className="w-7 h-7 rounded-full bg-blue-500 text-white flex items-center justify-center"
-                    >
-                      <FaCheck />
-                    </button>
-
-                    <div>
-                      <p className="line-through text-gray-500">
-                        {todo.title}
-                      </p>
-
-                      <span className="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs">
-                        Completed
-                      </span>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => deleteTodo(todo._id)}
-                    className="bg-red-500 text-white p-3 rounded-lg"
-                  >
-                    <FaTrash />
-                  </button>
-                </div>
-              ))
-            )}
+                ))
+              )}
+            </div>
           </div>
         </div>
       </div>
