@@ -1,0 +1,193 @@
+
+GEOTREE-MART COMPLETE API LIST
+
+================ AUTH =================
+POST   /auth/register
+POST   /auth/login
+POST   /auth/logout
+POST   /auth/send-otp
+POST   /auth/verify-otp
+POST   /auth/forgot-password
+POST   /auth/reset-password
+POST   /auth/refresh-token
+GET    /auth/me
+
+Functions:
+register, login, logout, sendOtp, verifyOtp,
+forgotPassword, resetPassword, refreshToken, getCurrentUser
+
+================ USERS =================
+GET    /users/profile
+PUT    /users/profile
+DELETE /users/profile
+GET    /users/dashboard
+GET    /users/orders
+GET    /users/certificates
+
+Functions:
+getProfile, updateProfile, deleteProfile, getDashboard,
+getUserOrders, getUserCertificates
+
+================ ADDRESSES =================
+POST   /users/address
+GET    /users/address
+PUT    /users/address/:id
+DELETE /users/address/:id
+PUT    /users/address/default/:id
+
+Functions:
+addAddress, getAddresses, updateAddress,
+deleteAddress, setDefaultAddress
+
+================ NURSERIES =================
+POST   /nurseries/register
+GET    /nurseries
+GET    /nurseries/:id
+PUT    /nurseries/:id
+DELETE /nurseries/:id
+GET    /nurseries/dashboard
+GET    /nurseries/analytics
+
+Functions:
+registerNursery, getNursery, getNurseries,
+updateNursery, deleteNursery,
+getNurseryDashboard, getNurseryAnalytics
+
+================ NURSERY VERIFICATION =================
+POST   /nurseries/kyc
+POST   /nurseries/gst
+POST   /nurseries/pan
+POST   /nurseries/license
+PUT    /nurseries/verify/:id
+PUT    /nurseries/reject/:id
+
+Functions:
+uploadGST, uploadPAN, uploadLicense,
+verifyNursery, rejectNursery
+
+================ CATEGORIES =================
+POST   /categories
+GET    /categories
+GET    /categories/:id
+PUT    /categories/:id
+DELETE /categories/:id
+
+Functions:
+createCategory, getCategories,
+getCategoryById, updateCategory,
+deleteCategory
+
+================ PLANTS =================
+POST   /plants
+GET    /plants
+GET    /plants/:id
+PUT    /plants/:id
+DELETE /plants/:id
+POST   /plants/:id/images
+GET    /plants/featured
+GET    /plants/popular
+
+Functions:
+createPlant, getPlants, getPlantById,
+updatePlant, deletePlant,
+uploadPlantImage,
+getFeaturedPlants, getPopularPlants
+
+================ PRODUCTS =================
+POST   /marketplace/products
+GET    /marketplace/products
+GET    /marketplace/products/:id
+PUT    /marketplace/products/:id
+DELETE /marketplace/products/:id
+POST   /marketplace/products/:id/images
+GET    /marketplace/products/nursery/:nurseryId
+
+Functions:
+createProduct, updateProduct,
+deleteProduct, getProduct,
+getProducts, uploadProductImage,
+getProductsByNursery
+
+================ INVENTORY =================
+POST   /inventory
+GET    /inventory
+GET    /inventory/:productId
+PUT    /inventory/:productId
+GET    /inventory/low-stock
+GET    /inventory/reports
+
+Functions:
+createInventory, updateStock,
+getInventory, getLowStockProducts,
+generateInventoryReport
+
+================ CART =================
+POST   /cart/add
+GET    /cart
+PUT    /cart/update/:itemId
+DELETE /cart/remove/:itemId
+DELETE /cart/clear
+
+Functions:
+addToCart, removeFromCart,
+updateQuantity, getCart, clearCart
+
+================ ORDERS =================
+POST   /orders
+GET    /orders
+GET    /orders/:id
+PUT    /orders/cancel/:id
+PUT    /orders/status/:id
+GET    /orders/invoice/:id
+POST   /orders/reorder/:id
+
+Functions:
+createOrder, getOrder,
+getOrders, cancelOrder,
+updateOrderStatus, reorder,
+downloadInvoice
+
+================ REVIEWS =================
+POST   /reviews
+GET    /reviews/:plantId
+PUT    /reviews/:id
+DELETE /reviews/:id
+GET    /ratings/:plantId
+
+Functions:
+addReview, updateReview,
+deleteReview, getReviews,
+getAverageRating
+
+================ WISHLIST =================
+POST   /wishlist/:productId
+DELETE /wishlist/:productId
+GET    /wishlist
+
+Functions:
+addWishlist, removeWishlist,
+getWishlist
+
+================ SEARCH =================
+GET    /search
+GET    /search/plants
+GET    /search/products
+GET    /search/nurseries
+GET    /search/suggestions
+
+Functions:
+globalSearch, searchPlants,
+searchProducts, searchNurseries,
+getSuggestions
+
+================ RECOMMENDATIONS =================
+GET    /recommendations/plants
+GET    /recommendations/nearby
+GET    /recommendations/popular
+GET    /recommendations/similar/:plantId
+
+Functions:
+getRecommendedPlants,
+getPopularPlants,
+getNearbyNurseries,
+getSimilarProducts

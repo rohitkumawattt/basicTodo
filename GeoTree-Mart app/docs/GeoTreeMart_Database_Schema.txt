@@ -1,0 +1,213 @@
+
+GEOTREE-MART POSTGRESQL DATABASE SCHEMA
+
+=================================================
+1. USERS
+=================================================
+users
+- id (UUID, PK)
+- role
+- user_type
+- first_name
+- last_name
+- email
+- phone
+- password_hash
+- profile_image
+- is_verified
+- is_active
+- created_at
+- updated_at
+
+=================================================
+2. ADDRESSES
+=================================================
+addresses
+- id (UUID, PK)
+- user_id (FK -> users)
+- address_line_1
+- address_line_2
+- city
+- district
+- state
+- country
+- pincode
+- latitude
+- longitude
+- is_default
+- created_at
+
+=================================================
+3. NURSERIES
+=================================================
+nurseries
+- id (UUID, PK)
+- owner_id (FK -> users)
+- nursery_name
+- description
+- contact_email
+- contact_phone
+- gst_number
+- opening_time
+- closing_time
+- verification_status
+- profile_image
+- created_at
+- updated_at
+
+=================================================
+4. NURSERY_VERIFICATIONS
+=================================================
+nursery_verifications
+- id (UUID, PK)
+- nursery_id (FK -> nurseries)
+- gst_certificate
+- pan_card
+- business_license
+- status
+- verified_by (FK -> users)
+- verified_at
+
+=================================================
+5. CATEGORIES
+=================================================
+categories
+- id (UUID, PK)
+- name
+- description
+- image_url
+- created_at
+
+=================================================
+6. PLANTS
+=================================================
+plants
+- id (UUID, PK)
+- category_id (FK -> categories)
+- botanical_name
+- common_name
+- description
+- water_requirement
+- sunlight_requirement
+- soil_requirement
+- growth_rate
+- flowering_season
+- fruiting_season
+- maintenance_level
+- toxicity_information
+- created_at
+
+=================================================
+7. PLANT_IMAGES
+=================================================
+plant_images
+- id (UUID, PK)
+- plant_id (FK -> plants)
+- image_url
+- created_at
+
+=================================================
+8. PRODUCTS
+=================================================
+products
+- id (UUID, PK)
+- nursery_id (FK -> nurseries)
+- plant_id (FK -> plants)
+- title
+- description
+- price
+- discount_percent
+- age_months
+- height_cm
+- pot_size
+- is_active
+- created_at
+
+=================================================
+9. PRODUCT_IMAGES
+=================================================
+product_images
+- id (UUID, PK)
+- product_id (FK -> products)
+- image_url
+
+=================================================
+10. INVENTORIES
+=================================================
+inventories
+- id (UUID, PK)
+- product_id (FK -> products)
+- current_stock
+- low_stock_threshold
+- updated_at
+
+=================================================
+11. CARTS
+=================================================
+carts
+- id (UUID, PK)
+- user_id (FK -> users)
+- created_at
+
+=================================================
+12. CART_ITEMS
+=================================================
+cart_items
+- id (UUID, PK)
+- cart_id (FK -> carts)
+- product_id (FK -> products)
+- quantity
+
+=================================================
+13. ORDERS
+=================================================
+orders
+- id (UUID, PK)
+- order_number
+- user_id (FK -> users)
+- address_id (FK -> addresses)
+- subtotal
+- tax_amount
+- total_amount
+- payment_status
+- order_status
+- created_at
+
+=================================================
+14. ORDER_ITEMS
+=================================================
+order_items
+- id (UUID, PK)
+- order_id (FK -> orders)
+- product_id (FK -> products)
+- quantity
+- unit_price
+- total_price
+
+=================================================
+15. REVIEWS
+=================================================
+reviews
+- id (UUID, PK)
+- user_id (FK -> users)
+- product_id (FK -> products)
+- rating
+- review_text
+- created_at
+
+=================================================
+16. REVIEW_IMAGES
+=================================================
+review_images
+- id (UUID, PK)
+- review_id (FK -> reviews)
+- image_url
+
+=================================================
+17. WISHLISTS
+=================================================
+wishlists
+- id (UUID, PK)
+- user_id (FK -> users)
+- product_id (FK -> products)
+- created_at
